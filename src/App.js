@@ -8,13 +8,14 @@ import Footer from './components/Footer';
 import Register from './components/Register';
 import Login from './components/Login';
 import Profile from './components/Profile';
+import Robbery from './components/Robbery';
 import About from './components/About';
 import Contact from './components/Contact';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsAndConditions from './components/TermsAndConditions';
 import backgroundImage from './assets/images/wallpaper.jpg';
 import Chat from './components/ChatApp';
-
+import { useLocation } from 'react-router-dom';
 
 function App() { 
   return (
@@ -35,12 +36,13 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/robbery" element={<Robbery />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-and-conditions" element={<TermsAndConditions />} /> 
-            <Route path="/chat" element={<Chat />} /> {/* Add route for Chat component */}
-            </Routes>
+            <Route path="/chat" element={<Chat />} />
+            </Routes>  
           </main>
           <Footer />
         </AuthProvider>

@@ -1,9 +1,9 @@
-
 import React, { Component } from "react";
 import socketIOClient from "socket.io-client";
 import ChatBox from "./ChatBox";
 import Message from "./Message";
 import NickNameInput from "./NickNameInput";
+import '../index.css';
 
 class ChatApp extends Component {
   constructor() {
@@ -34,7 +34,8 @@ class ChatApp extends Component {
           <NickNameInput setNickName={this.setNickName} />
         ) :
           <div>
-            <h2>Welcome {this.state.nick}!</h2>
+            
+<h2>Im the best, Fuck the rest!</h2>
             <ChatBox sendMessage={this.sendMessage} />
             <section aria-live='polite'>
               {this.state.messages.map((message, i) => (

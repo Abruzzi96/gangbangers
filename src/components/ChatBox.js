@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../global.css';
 
 const ChatBox = ({ sendMessage }) => {
   const [message, setMessage] = useState('');
@@ -9,11 +10,11 @@ const ChatBox = ({ sendMessage }) => {
     setMessage('');
   };
 
-  return (
+  return ( 
     <div>
-      <form onSubmit={handleMessageSubmit}>
-        <label id="message" htmlFor="message-input">Enter Message</label>
-        <input 
+      <form class="chatA" onSubmit={handleMessageSubmit}>
+        <label class="chatB" id="message" htmlFor="message-input"></label>
+        <input class="chatC" 
           id="message-input"
           type="text" 
           value={message} 

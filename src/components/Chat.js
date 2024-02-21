@@ -1,9 +1,14 @@
-import ChatApp from './ChatApp'; // replace with the actual path
+//react importu lazim degil mi buraya ?
+import ChatApp from './ChatApp';
+//import Header from './Header';
+import '../global.css';
 
 function Chat() {
   return (
-    <div className="chat">
-      <Chat /> {/* Here, your chat component will be rendered. */}
+    <div class="chat"> 
+        <ChatApp /> 
     </div>
   );
 }
+
+export default Chat;

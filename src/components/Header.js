@@ -7,7 +7,7 @@ const Header = () => {
     useEffect(() => {
         document.title = "GangBangers";
     }, []);
-    return (
+      return (
         <header className="header">
             <nav>
                 <ul className="nav-links"> 
@@ -31,7 +31,7 @@ const Header = () => {
                     </li>
                 </ul>
             </nav>
-        </header>
+        </header>      
     );
 };
 

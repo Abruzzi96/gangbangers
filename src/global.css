@@ -117,6 +117,21 @@ form button:hover, form input[type="submit"]:hover {
   font-family: monospace;
 }
 
-.chat form {
-  color: red;
+.chatA {
+  all: unset;
+}
+.chatB {
+  all: unset;
+}
+.chatC {
+  all: unset;
+}
+.chatD {
+  all: unset;
+}
+.chatE {
+  all: unset;
+}
+.chatF {
+  all: unset;
 }
