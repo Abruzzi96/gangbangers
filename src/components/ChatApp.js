@@ -3,7 +3,7 @@ import socketIOClient from "socket.io-client";
 import ChatBox from "./ChatBox";
 import Message from "./Message";
 import NickNameInput from "./NickNameInput";
-import '../index.css';
+import '../global.css';
 
 class ChatApp extends Component {
   constructor() {
@@ -13,7 +13,7 @@ class ChatApp extends Component {
       messages: [],
     };
 
-    this.socket = socketIOClient('192.168.0.22:4000');
+    this.socket = socketIOClient('10.10.38.66:4000');
     this.socket.on('fromServer', (msg) => {
       this.setState({ messages: [...this.state.messages, msg] });
     });
@@ -35,7 +35,6 @@ class ChatApp extends Component {
         ) :
           <div>
             
-<h2>Im the best, Fuck the rest!</h2>
             <ChatBox sendMessage={this.sendMessage} />
             <section aria-live='polite'>
               {this.state.messages.map((message, i) => (

@@ -4,7 +4,7 @@ import React from 'react';
 
 const Robbery = () => {
     return (
-        <div>
+        <div className="container">
             <h1>Robbery Page</h1>
             // Your code for robbery game feature comes here.
         </div>

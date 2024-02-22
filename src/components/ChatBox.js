@@ -11,10 +11,11 @@ const ChatBox = ({ sendMessage }) => {
   };
 
   return ( 
-    <div>
-      <form class="chatA" onSubmit={handleMessageSubmit}>
-        <label class="chatB" id="message" htmlFor="message-input"></label>
-        <input class="chatC" 
+    <div className="container chat">
+      <form onSubmit={handleMessageSubmit}>
+      <h2>I'm the best, Fuck the rest!</h2>
+        <label id="message" htmlFor="message-input"></label>
+        <input  
           id="message-input"
           type="text" 
           value={message} 

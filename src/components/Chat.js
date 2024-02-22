@@ -1,11 +1,11 @@
-//react importu lazim degil mi buraya ?
+import React from 'react';
 import ChatApp from './ChatApp';
 //import Header from './Header';
 import '../global.css';
 
 function Chat() {
   return (
-    <div class="chat"> 
+    <div className="container chat"> 
         <ChatApp /> 
     </div>
   );
