@@ -15,7 +15,8 @@ import PrivacyPolicy from './components/PrivacyPolicy';
 import TermsAndConditions from './components/TermsAndConditions';
 import backgroundImage from './assets/images/wallpaper.jpg';
 import Chat from './components/ChatApp';
-import { useLocation } from 'react-router-dom';
+
+import CarGame from './components/CarGame';
 
 function App() { 
   return (
@@ -42,6 +43,7 @@ function App() {
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-and-conditions" element={<TermsAndConditions />} /> 
             <Route path="/chat" element={<Chat />} />
+            <Route path="cargame" element={<CarGame />} />
             </Routes>  
           </main>
           <Footer />

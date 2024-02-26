@@ -29,6 +29,9 @@ const Header = () => {
                     <li>
                         <Link to="/chat">Chat</Link>
                     </li>
+                    <li>
+                        <Link to="/cargame">CarGame</Link>
+                    </li> 
                 </ul>
             </nav>
         </header>      
