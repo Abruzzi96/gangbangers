@@ -1,58 +1,107 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from 'react';
+import { RoadAsset, CarAsset, GoldAsset } from './Assets';
 
 const CarGame = () => {
+  const [gameStart, setGameStart] = useState(false);
   const [score, setScore] = useState(0);
-  const [carPosition, setCarPosition] = useState({x: 50, y: 50});
-  const [goldPosition, setGoldPosition] = useState({x: 200, y: 200});
+  const [goldPosition, setGoldPosition] = useState({x: 250, y: 0});
+  const [carStatus, setCarStatus] = useState({position: {x: 250, y: 450}, direction: null});
+  const gameContainer = useRef(null);
 
   useEffect(() => {
-    function handleArrowKey(event) {
-      if([37, 38, 39, 40].includes(event.keyCode)) {
-        event.preventDefault();
-        let newPos = {...carPosition};
+    const handleKeyDown = (event) => {
+      switch (event.keyCode) {
+        case 37:
+          setCarStatus(prevStatus => ({ ...prevStatus, direction: 'left' }));
+          break;
+        case 39:
+          setCarStatus(prevStatus => ({ ...prevStatus, direction: 'right' }));
+          break;
+        default:
+          break;
+      }
+    };
 
-        switch(event.keyCode) {
-        case 37: // left arrow key
-          newPos.x = carPosition.x > 10 ? carPosition.x - 10 : 0;
-          break;
-        case 39: // right arrow key
-          newPos.x = carPosition.x < 440 ? carPosition.x + 10 : 450;
-          break;
-        case 38: // up arrow key
-          newPos.y = carPosition.y > 10 ? carPosition.y - 10 : 0;
-          break;
-        case 40: // down arrow key
-          newPos.y = carPosition.y < 440 ? carPosition.y + 10 : 450;
+    const handleKeyUp = (event) => {
+      if (event.keyCode === 37 || event.keyCode === 39) {
+        setCarStatus(prevStatus => ({ ...prevStatus, direction: null }));
+      }
+    };
+
+    // Event listeners
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyUp);
+    };
+  }, []);
+
+  useEffect(() => {
+    const moveCarInterval = setInterval(() => {
+      if (gameStart && carStatus.direction) {
+        let newPos = { ...carStatus.position };
+        switch (carStatus.direction) {
+          case 'left':
+            newPos.x = carStatus.position.x > 0 ? carStatus.position.x - 2 : carStatus.position.x;
+            break;
+          case 'right':
+            newPos.x = carStatus.position.x < 500 ? carStatus.position.x + 2 : carStatus.position.x;
+            break;
+          default:
+            break;
         }
+        setCarStatus(prevStatus => ({ ...prevStatus, position: newPos }));
+      }
+    }, 10);
 
-        setCarPosition(newPos);
+    return () => clearInterval(moveCarInterval);
+  }, [carStatus, gameStart]);
+
+  useEffect(() => {
+    const goldInterval = setInterval(() => {
+      if (gameStart) {
+        let y = goldPosition.y < 480 ? goldPosition.y + 5 : 0;
+        let x = y === 0 ? Math.floor(Math.random() * 480) : goldPosition.x;
+        setGoldPosition({ x: x, y: y });
+      }
+    }, 100);
+
+    return () => clearInterval(goldInterval);
+  }, [goldPosition, gameStart]);
+
+  useEffect(() => {
+    if (gameStart) {
+      if (Math.abs(carStatus.position.x - goldPosition.x) < 20 &&
+          Math.abs(carStatus.position.y - goldPosition.y) < 20) {
+        setScore(score => score + 1);
+        setGoldPosition({x: Math.floor(Math.random() * 480), y: 0});
       }
     }
-
-    window.addEventListener('keydown', handleArrowKey);
-
-    return () => window.removeEventListener('keydown', handleArrowKey);
-  }, [carPosition]);
-
-  useEffect(() => {
-    if(Math.abs(carPosition.x - goldPosition.x) < 10 && Math.abs(carPosition.y - goldPosition.y) < 10) {
-      setScore(score => score + 1);
-      setGoldPosition({
-        x: Math.random() * 450,
-        y: Math.random() * 450
-      });
-    }
-  }, [carPosition]);
+  }, [carStatus, gameStart, goldPosition.x, goldPosition.y]);
 
   return (
-    <div className="App" style={{position: 'relative', height: '500px', width: '500px', border: '1px solid'}}>
-      <div role="img" aria-label="Car Game" style={{position: 'absolute', left: `${carPosition.x}px`, top: `${carPosition.y}px`}}>
-        🚗
-      </div>
-      <div role="img" aria-label="Gold" style={{position: 'absolute', left: `${goldPosition.x}px`, top: `${goldPosition.y}px`}}>
-        🪙
-      </div>
-      <p>Score: {score}</p>
+    <div
+      ref={gameContainer}
+      className="App"
+      tabIndex={0}
+      style={{ position: 'relative', height: '500px', width: '500px', border: '1px solid' }}
+    >
+      <RoadAsset />
+      <CarAsset position={carStatus.position} />
+      <GoldAsset position={goldPosition} />
+      {!gameStart && (
+        <button style={{ position: 'absolute', zIndex: 2 }} onClick={() => setGameStart(true)}>
+          Start Game
+        </button>
+      )}
+      {gameStart && (
+        <p>
+          Score: {score}
+        </p>
+      )}
     </div>
   );
 }
