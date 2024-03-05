@@ -14,10 +14,15 @@ gangbangers
     ├── App.test.js
     ├── asciiArt.js
     ├── assets
-    │   └── images
-    │       └── wallpaper.jpg
+    │   ├── Car.jpg
+    │   ├── Gold.svg
+    │   ├── images
+    │   │   └── wallpaper.jpg
+    │   └── Road.svg
     ├── components
     │   ├── About.js
+    │   ├── Assets.js
+    │   ├── CarGame.js
     │   ├── ChatApp.js
     │   ├── ChatBox.js
     │   ├── Chat.js
@@ -44,4 +49,5 @@ gangbangers
     ├── setupTests.js
     └── Terminal.js
 
-7 directories, 38 files
+7 directories, 43 files
+
