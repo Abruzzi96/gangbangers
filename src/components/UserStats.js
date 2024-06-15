@@ -1,15 +1,19 @@
-// UserStats.js
+// /srch/components/UserStats.js
 import React, { useContext } from 'react';
-import UserContext from '../context/UserContext';
+import { AuthContext } from '../context/AuthContext'; // Correct import statement
 
 function UserStats() {
-  const { user } = useContext(UserContext);
+  const { user } = useContext(AuthContext); // Use AuthContext instead of UserContext
 
   return user ? (
     <div>
-      <h2>User Stats</h2>
-      <p>Username: {user.username}</p>
-      <p>Score: {user.score}</p>
+      <p>Money: {user.money}</p>
+      <p>Stamina: {user.stamina}</p>
+      <br/>
+      <p>Level: {user.level}</p>
+      <p>EXP: {user.experience}</p>
+      <p>STR: {user.strenght}</p>
+      <p>DEX: {user.dexterity}</p>
       {/* other user stats */}
     </div>
   ) : (

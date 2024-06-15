@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+//src/components/Login.js
+/* eslint-disable no-unused-vars */
+import React, { useState, useContext } from 'react';
+/* eslint-enable no-unused-vars */
+
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
+    const { login } = useContext(AuthContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -25,13 +31,12 @@ const Login = () => {
 
         if (Object.keys(formErrors).length === 0) {
             try {
-                // Send login request to backend
                 const response = await axios.post('http://localhost:4000/login', { username, password });
 
                 console.log('Login successful:', response.data);
 
-                // Redirect to profile page or dashboard after successful login
-                navigate('/profile'); // Replace with the desired redirect path
+                login(response.data.user); // Assuming your response includes user data
+                navigate('/profile');
             } catch (error) {
                 console.error('Login error:', error);
                 // Handle login error, e.g., display error message

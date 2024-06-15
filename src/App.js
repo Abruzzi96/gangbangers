@@ -1,7 +1,8 @@
 // src/App.js
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext.js';
+import React, { useContext } from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import { AuthContext } from './context/AuthContext';
 import Home from './components/Home';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -36,7 +37,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={<PrivateRoute element={<Profile />} />} />
             <Route path="/robbery" element={<Robbery />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
@@ -52,5 +53,11 @@ function App() {
     </Router>
   );
 }
+
+// PrivateRoute component to protect routes
+const PrivateRoute = ({ element }) => {
+  const { user } = useContext(AuthContext);
+  return user ? element : <Navigate to="/login" />;
+};
 
 export default App;

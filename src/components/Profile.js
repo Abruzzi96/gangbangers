@@ -1,17 +1,21 @@
 // src/components/Profile.js
 import React, { useContext } from 'react';
-import AuthContext from '../context/AuthContext';
-import '../global.css';
+import { AuthContext } from '../context/AuthContext';
+import UserStats from './UserStats'; // Import UserStats component
 
 function Profile() {
   const { user } = useContext(AuthContext);
 
- return (
+  return (
     <div className="container">
       {user ? (
-        <h1 role="heading" aria-label={`Welcome message for ${user.username}`}>Welcome, {user.username}</h1>
+        <div>
+          <h1>Welcome, {user.username}</h1>
+          <UserStats /> {/* Render UserStats component here */}
+          {/* Additional profile information can be added here */}
+        </div>
       ) : (
-        <h1 role="heading" aria-label="Login instruction">Please log in.</h1>
+        <h1>Please log in to view your profile.</h1>
       )}
     </div>
   );
