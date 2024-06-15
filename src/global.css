@@ -70,7 +70,7 @@ form label {
   margin-bottom: 1rem;
 }
 
-form input[type="text"], form input[type="email"], form input[type="submit"], 
+form input[type="text"], form input[type="email"], form input[type="username"], form input[type="submit"], 
 form input[type="password"] {
   margin-top: 0.5rem;
   padding: 1rem;

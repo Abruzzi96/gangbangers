@@ -1,45 +1,65 @@
-// src/components/Register.js
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-class Register extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: '',
-            password: '',
-            confirmedPassword: ''
-        };
-    }
-    
-    handleChange = (event) => {
-        const target = event.target;
-        const value = target.value;
-        const name = target.name;
+const Register = () => {
+    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmedPassword, setConfirmedPassword] = useState('');
+    const navigate = useNavigate();
 
-        this.setState({
-            [name]: value
-        });
-    }
-
-    handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        // Form submission logic goes here
-    }
+        
+        if (password !== confirmedPassword) {
+            alert('Passwords do not match');
+            return;
+        }
 
-    render() {
-        return (
-            <div>
+        try {
+            const response = await axios.post('http://localhost:4000/register', { email, username, password });
+            console.log('User registered successfully:', response.data);
+            // Optionally redirect or show a success message
+            navigate('/login'); // Navigate to login page
+        } catch (error) {
+            console.error('Registration error:', error);
+            // Handle error, show an alert, etc.
+        }
+    };
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        if (name === 'email') setEmail(value);
+        else if (name === 'username') setUsername(value);
+        else if (name === 'password') setPassword(value);
+        else if (name === 'confirmedPassword') setConfirmedPassword(value);
+    };
+
+    return (
+        <div>
             <h1><center>Register</center></h1>
-            <form onSubmit={this.handleSubmit}>
-                  <label htmlFor="email">
+            <form onSubmit={handleSubmit}>
+                <label htmlFor="email">
                     Email
                     <input
                         id="email"
                         name="email"
                         type="email"
-                        value={this.state.email}
-                        aria-required="true"
-                        onChange={this.handleChange}
+                        value={email}
+                        onChange={handleChange}
+                        required
+                    />
+                </label>
+                <label htmlFor="username">
+                    Username
+                    <input
+                        id="username"
+                        name="username"
+                        type="username"
+                        value={username}
+                        onChange={handleChange}
+                        required
                     />
                 </label>
                 <label htmlFor="password">
@@ -48,9 +68,9 @@ class Register extends React.Component {
                         id="password"
                         name="password"
                         type="password"
-                        value={this.state.password}
-                        aria-required="true"
-                        onChange={this.handleChange}
+                        value={password}
+                        onChange={handleChange}
+                        required
                     />
                 </label>
                 <label htmlFor="confirmedPassword">
@@ -59,17 +79,15 @@ class Register extends React.Component {
                         id="confirmedPassword"
                         name="confirmedPassword"
                         type="password"
-                        value={this.state.confirmedPassword}
-                        aria-required="true"
-                        onChange={this.handleChange}
+                        value={confirmedPassword}
+                        onChange={handleChange}
+                        required
                     />
                 </label>
                 <button type="submit">Register</button>
             </form>
-          </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 export default Register;
-
